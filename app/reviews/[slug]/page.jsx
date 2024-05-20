@@ -1,6 +1,8 @@
 import Heading from "../../components/Heading.jsx";
 import Link from "next/link";
 import { getReview, getSlugs } from "../../lib/reviews.js";
+import { Share } from "next/font/google/index.js";
+import ShareLinkButton from "../../components/ShareLinkButton.jsx";
 
 
 
@@ -17,8 +19,11 @@ const review = await getReview(slug);
   return (
     <>
       <Heading> {review.title}</Heading>
+      <div className="flex gap-3 items-baseline">
+        <p className="italic pb-2"> {review.date}</p>
+        <ShareLinkButton />
+      </div>
 
-      <p className="italic pb-2"> {review.date}</p>
       <img
         src={review.image}
         alt=""

@@ -22,8 +22,11 @@ export async function getReviews() {
         const review = await getReview(slug);
         reviews.push(review);
     }
+
+  
     return reviews;
 }
+
 
 export async function getSlugs() {
     const files = await readdir('./app/content/reviews');
