@@ -1,0 +1,108 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "attributes": {
+        "title": "Hollow Knight",
+        "slug": "hollow-knight",
+        "subtitle": "A Sublime Journey Through an Enigmatic World",
+        "image": {
+          "data": {
+            "id": 1,
+            "attributes": {
+              "url": "/uploads/hollow_knight_da5257a59c.jpg"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "attributes": {
+        "title": "Stardew Valley",
+        "slug": "stardew-valley",
+        "subtitle": "A Tranquil Oasis of Farming and Adventure",
+        "image": {
+          "data": {
+            "id": 2,
+            "attributes": {
+              "url": "/uploads/stardew_valley_a268200e49.jpg"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "attributes": {
+        "title": "Hellblade: Senua's Sacrifice",
+        "slug": "hellblade-senuas-sacrifice",
+        "subtitle": "A Hauntingly Captivating Journey",
+        "image": {
+          "data": {
+            "id": 3,
+            "attributes": {
+              "url": "/uploads/hellblade_senuas_sacrifice_56b4c7ac75.jpg"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "attributes": {
+        "title": "Don't Starve Together",
+        "slug": "dont-starve-together",
+        "subtitle": "Survive Together or Perish Alone",
+        "image": {
+          "data": {
+            "id": 4,
+            "attributes": {
+              "url": "/uploads/dont_starve_together_11e6d2baed.jpg"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "attributes": {
+        "title": "Fall Guys: Ultimate Knockout",
+        "slug": "fall-guys",
+        "subtitle": "A Whimsical Party Game for Endless Fun",
+        "image": {
+          "data": {
+            "id": 5,
+            "attributes": {
+              "url": "/uploads/fall_guys_9f9b386677.jpg"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 6,
+      "attributes": {
+        "title": "INSIDE",
+        "slug": "inside",
+        "subtitle": "Dive Into the Enigmatic Abyss",
+        "image": {
+          "data": {
+            "id": 6,
+            "attributes": {
+              "url": "/uploads/inside_edd39ca199.jpg"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 6,
+      "pageCount": 5,
+      "total": 25
+    }
+  }
+}
