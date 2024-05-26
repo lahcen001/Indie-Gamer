@@ -2,61 +2,81 @@ import {readFile , readdir} from 'node:fs/promises';
 import matter from 'gray-matter'
 import { marked} from 'marked'
 import qs from 'qs'
+const CMS_URL = "http://localhost:1337";
 
 export async function getReview(slug) {
-    const text = await readFile('./app/content/reviews/'+slug+'.md', 'utf-8');
-    const { content , data : {title, image , date} } = matter (text);
-    const html = marked(content, { headerIds: false, mangle: false });
+
+
+     const fetchdata = await FetchReviews(
+       {
+         filters: { slug: { $eq: slug } },
+         fields: ["title", "slug", "subtitle", "body"],
+         populate: { image: { fields: ["url"] } },
+         pagination: { pageSize: 1 },
+       },
+       { econdeValuesOnly: true }
+     );
+
+
+    const review = fetchdata[0];
+
+  
     return {
-        title,
-        image,
-        date,
-        html,
-        slug
-    }
+      title: review.attributes.title,
+      subtitle: review.attributes.subtitle,
+      date: review.attributes.publishedAt,
+      slug: review.attributes.slug,
+      id: review.id,
+      image: CMS_URL + review.attributes.image.data.attributes.url,
+      body: review.attributes.body,
+    };
+
+
 }
 
 export async function getReviews() {
-//    const slugs = await getSlugs();
-//    const reviews = [];
-//     for (const slug of slugs) {
-//         const review = await getReview(slug);
-//         reviews.push(review);
-//     }
 
-  
-//     return reviews;
-const url =
-  "http://localhost:1337/api/reviews" +
-  "?" +
-  qs.stringify(
-    {
-      fields: ["title", "slug", "subtitle"],
-      populate: { image: { fields: ["url"] } },
-      pagination: { pageSize: 200 },
-    },
-    { econdeValuesOnly: true }
-  );
-const response = await fetch(url, {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
+
+const data = await FetchReviews(
+  {
+    fields: ["title", "slug", "subtitle", "body"],
+    populate: { image: { fields: ["url"] } },
+    pagination: { pageSize: 100 },
   },
-});
+  { econdeValuesOnly: true }
+);
 
 
-const {data} = await response.json();
-console.log(data);
+
 return data.map((review) => ({
   title: review.attributes.title,
   subtitle: review.attributes.subtitle,
   date: review.attributes.publishedAt,
   slug: review.attributes.slug,
   id: review.id,
-  image:'http://localhost:1337' + review.attributes.image.data.attributes.url,
-}))
+ image: CMS_URL + review.attributes.image.data.attributes.url,
+}));
 
 }
+
+export async function FetchReviews( params){
+
+const url =
+  CMS_URL+"/api/reviews" +
+  "?" +
+  qs.stringify(params);
+const response = await fetch(url, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+const { data } = await response.json();
+return data
+
+}
+
+
 
 
 export async function getSlugs() {

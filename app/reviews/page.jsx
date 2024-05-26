@@ -4,7 +4,7 @@ import { getReviews } from "./../lib/reviews";
 async function ReviewsPage() {
   const reviews  = await getReviews()
 
-  console.log('reviews : ',reviews)
+
   return (
     <>
       <Heading>Reviews</Heading>
@@ -27,8 +27,6 @@ async function ReviewsPage() {
           }
 
        
-
-
       </ul>
     </>
   );
