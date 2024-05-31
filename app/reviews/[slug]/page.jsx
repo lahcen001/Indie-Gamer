@@ -3,11 +3,13 @@ import Link from "next/link";
 import { getReview, getSlugs } from "../../lib/reviews.js";
 import { Share } from "next/font/google/index.js";
 import ShareLinkButton from "../../components/ShareLinkButton.jsx";
+import Image from "next/image";
 
 
 
 export async function generateStaticParams() {
   const slugs = await getSlugs();
+
   return slugs.map((slug) => ({
     slug,
   }));
@@ -16,7 +18,7 @@ export async function generateStaticParams() {
 
 async function  Page({params : {slug }}) {
 const review = await getReview(slug);
-console.log('review : ', review.image)
+console.log('review : ', review)
   return (
     <>
       
@@ -26,11 +28,11 @@ console.log('review : ', review.image)
           <ShareLinkButton />
         </div>
 
-        <img
+        <Image
           src={review.image}
           alt=""
           width="640"
-          heights="360"
+          height="360"
           className="mb-2 rounded"
         />
 
