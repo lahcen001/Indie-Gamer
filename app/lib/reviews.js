@@ -6,7 +6,7 @@ const CMS_URL = "http://localhost:1337";
 export async function getReview(slug) {
 
 
-     const fetchdata = await FetchReviews(
+     const {data} = await FetchReviews(
        {
          filters: { slug: { $eq: slug } },
          fields: ["title", "slug", "subtitle", "body", "publishedAt"],
@@ -16,8 +16,9 @@ export async function getReview(slug) {
        { econdeValuesOnly: true }
      );
 
+     console.log('object  : ', data)
 
-    const review = fetchdata[0];
+    const review = data[0];
 
   
     return {
@@ -33,28 +34,30 @@ export async function getReview(slug) {
 
 }
 
-export async function getReviews(count) {
+export async function getReviews(count, page) {
 
 
-const data = await FetchReviews(
+const {data, meta} = await FetchReviews(
   {
     fields: ["title", "slug", "subtitle", "body", "publishedAt"],
     populate: { image: { fields: ["url"] } },
-    pagination: { pageSize: count },
+    pagination: { pageSize: count, page: page},
   },
   { econdeValuesOnly: true }
 );
 
 
 
-return data.map((review) => ({
+return {
+  reviews: data.map((review) => ({
   title: review.attributes.title,
   subtitle: review.attributes.subtitle,
   date: review.attributes.publishedAt,
   slug: review.attributes.slug,
   id: review.id,
   image: CMS_URL + review.attributes.image.data.attributes.url,
-}));
+
+})), pageCount : meta.pagination.pageCount}
 
 }
 
@@ -70,14 +73,14 @@ const response = await fetch(url, {
     "Content-Type": "application/json",
   },
 });
-const { data } = await response.json();
-return data
+const { data, meta } = await response.json();
+return  {data, meta };
 
 }
 
 
 export async function getSlugs() {
-    const  data  = await FetchReviews({
+    const {data} = await FetchReviews({
       fields: ["slug"],
       pagination: { pageSize: 100 },
     });

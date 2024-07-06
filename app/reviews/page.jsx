@@ -2,13 +2,20 @@ import Heading from "./../components/Heading";
 import Link from "next/link";
 import { getReviews } from "./../lib/reviews";
 import Image  from "next/image";
-async function ReviewsPage() {
-  const reviews  = await getReviews(12)
+import PaginationBar from "../components/PaginationBar";
+async function ReviewsPage({ searchParams }) {
 
+  const page = isFinite(parseInt(searchParams.page))
+    ? parseInt(searchParams.page)
+    : 1;
 
+   const {reviews, pageCount} = await getReviews(4, page);
   return (
     <>
-      <Heading>Reviews</Heading>
+      <Heading>Reviews </Heading>
+
+      <PaginationBar page={page} pageCount={pageCount} />
+
       <ul className="flex flex-wrap gap-4 justify-center ">
         {reviews.map((review) => (
           <li className="bg-white  border rounded-lg shadow-md p-4 w-80 hover:shadow-lg transition duration-500 ease-in-out">
